@@ -1,13 +1,2 @@
-# Sensitive data
-.env
-
-# Dependencies
 /vendor/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Logs
-error_log
-*.log
+.env
