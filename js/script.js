@@ -59,7 +59,7 @@
 					const data = Object.fromEntries(formData.entries());
 
 					try{
-						const response = await fetch('api/passwordRecovery.php', {
+						const response = await fetch('/Dee-Auth-System/api/passwordRecovery.php', {
 							method: 'POST',
 							headers: { 
 								'Content-Type': 'application/json'
@@ -86,7 +86,7 @@
 						}
 					}catch(error){
 						if(loader) loader.classList.remove('active');
-						showNotification("Email not found.", 'error');
+						showNotification("An error occurred. Please try again.", 'error');
 					}
 				});
 			}
@@ -127,7 +127,7 @@
 					const data = Object.fromEntries(formData.entries());
 
 					try {
-						const response = await fetch('api/passReset.php', {
+						const response = await fetch('/Dee-Auth-System/api/passReset.php', {
 							method: 'POST',
 							headers: { 'Content-Type': 'application/json' },
 							body: JSON.stringify(data)
@@ -168,7 +168,7 @@
 				const data = Object. fromEntries(formData.entries());
 
 				try{
-					const response = await fetch('api/register.php', {
+					const response = await fetch('/Dee-Auth-System/api/register.php', {
 						method: 'POST',
 						headers: {
 							'Content-Type' : 'application/json'
@@ -203,7 +203,7 @@
 				const data = Object. fromEntries(formData.entries());
 
 				try{
-					const response = await fetch('api/login.php', {
+					const response = await fetch('/Dee-Auth-System/api/login.php', {
 						method: 'POST',
 						headers: {
 							'Content-Type' : 'application/json' 
@@ -216,7 +216,7 @@
 					if(response.ok && result.status === 'success'){
 						showNotification(result.message, 'success');
 					        setTimeout(() => {
-					            window.location.href = 'views/dashboard.php';
+					            window.location.href = 'dashboard.php';
 					        }, 1000);
 					}else {
 				        showNotification(result.message, 'error');

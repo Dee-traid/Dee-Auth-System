@@ -111,7 +111,7 @@ class User{
 	        $mail->SMTPAuth = true;
 	        $mail->Username = $_ENV['MAIL_USER'];
 	        $mail->Password = $_ENV['MAIL_PASS'];
-	        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+	        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 	        $mail->Port = $_ENV['MAIL_PORT'];
 
 	        $mail->setFrom($_ENV['MAIL_USER'], $_ENV['MAIL_FROM_NAME']);

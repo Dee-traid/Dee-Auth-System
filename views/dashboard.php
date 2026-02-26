@@ -13,7 +13,7 @@ if (!isset($_SESSION['userId'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Dee-Triad</title>
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <link rel="icon" type="image/png" href="../images/favicon.png">
 </head>
@@ -44,7 +44,7 @@ if (!isset($_SESSION['userId'])) {
                 </div>
 
                 <div class="dashboard-footer">
-                    <a href="views/logout.php" class="dashboard-button">Logout</a>
+                    <a href="logout.php" class="dashboard-button">Logout</a>
                 </div>
             </div>
         </div>
