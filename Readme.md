@@ -95,8 +95,6 @@ Loader animations for smooth UX
 
 .env file for sensitive credentials
 
-No hardcoded database or SMTP credentials
-
 🛠 Tech Stack
 Layer   Technology
 Backend PHP 8.x
@@ -110,7 +108,7 @@ Password hashing using password_hash() with BCRYPT
 
 Environment variable management via PHP DotEnv
 
-Session-based authentication
+JWT Security based Authentication
 
 Unique email constraints
 
@@ -216,7 +214,7 @@ Endpoint    Method  Description
 
 All endpoints return structured JSON responses for frontend handling.
 
-🔮 Future Improvements
+🔮 Added Features
 
 CSRF protection tokens
 
@@ -224,17 +222,12 @@ Rate limiting for login attempts
 
 Email verification on registration
 
-JWT-based authentication option
+JWT-based authentication
 
-Dockerized deployment
-
-Unit testing implementation
-
-Role-based access control (RBAC)
 
 👨‍💻 Author
 
-Dee Traid
+Dee-Traid
 
 Goal:
 Building hands-on experience in Backend Development & Engineering through practical system design and secure architecture implementation.
