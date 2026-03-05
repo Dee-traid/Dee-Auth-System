@@ -5,7 +5,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 
-require_once 'views/index.html';
+require_once 'views/index.php';
 
 
 ?>

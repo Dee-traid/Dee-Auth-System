@@ -1,15 +1,13 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['userId'])) {
-    header("Location: index.html");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <script>
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+            window.location.href = "../index.php";
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Dee-Triad</title>
@@ -19,15 +17,9 @@ if (!isset($_SESSION['userId'])) {
 </head>
 <body class="dashboard-body">
 
-    <div class="dashboard-wrapper">
-        
-        <header class="dashboard-header-section">
-            <h1>User Dashboard</h1>
-        </header>
-
-        <div class="dashboard-card">
+  <div class="dashboard-card">
             <div class="dashboard-box">
-                <h2 class="dashboard-header-text">Welcome, <?php echo htmlspecialchars($_SESSION['userName']); ?>!</h2>
+                <h2 class="dashboard-header-text">Welcome, <span id="display-name">User</span>!</h2>
                 
                 <div class="dashboard-detail-row">
                     <span class="dashboard-label">Account Status</span>
@@ -38,17 +30,38 @@ if (!isset($_SESSION['userId'])) {
 
                 <div class="dashboard-detail-row">
                     <span class="dashboard-label">User ID</span>
-                    <div class="dashboard-value">
-                        <?php echo htmlspecialchars($_SESSION['userId']); ?>
+                    <div class="dashboard-value" id="display-id">
+                        Loading...
                     </div>
                 </div>
 
                 <div class="dashboard-footer">
-                    <a href="logout.php" class="dashboard-button">Logout</a>
+                    <button id="logout-btn" class="dashboard-button" style="border:none; cursor:pointer;">Logout</button>
                 </div>
             </div>
         </div>
     </div>
 
+<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const userName = localStorage.getItem('user_name');
+            const userId = localStorage.getItem('user_id');
+            if (userName) {
+                document.getElementById('display-name').textContent = userName || 'User';
+            }
+
+            if (userId) {
+                document.getElementById('display-id').textContent = userId || 'N/A';
+            }
+
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('user_name');
+                localStorage.removeItem('user_id');
+                window.location.href = "/Dee-Auth-System/views/logout.php";
+            });
+            
+        });
+    </script>
 </body>
 </html>

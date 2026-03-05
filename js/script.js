@@ -13,8 +13,13 @@
 			resetForm = document.querySelector(".reset-box form"),
 			verifyBtn = document.getElementById('verify-btn'),
 			backToLoginBtn = document.querySelector(".back-to-login"),
-			tokenInput = document.getElementById('token-input');
+			tokenInput = document.getElementById('token-input'),
+			csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content')
 
+			const getHeaders = () => ({
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Bearer ' + (localStorage.getItem('auth_token') || '')
+		    });
 
 			let generatedToken = "";
 	
@@ -57,6 +62,8 @@
 
 					const formData = new FormData(recoveryForm);
 					const data = Object.fromEntries(formData.entries());
+
+					data.csrf_token = csrfToken;
 
 					try{
 						const response = await fetch('/Dee-Auth-System/api/passwordRecovery.php', {
@@ -126,6 +133,8 @@
 					const formData = new FormData(resetForm);
 					const data = Object.fromEntries(formData.entries());
 
+					data.csrf_token = csrfToken;
+
 					try {
 						const response = await fetch('/Dee-Auth-System/api/passReset.php', {
 							method: 'POST',
@@ -167,11 +176,13 @@
 				const formData = new FormData(registerForm);
 				const data = Object. fromEntries(formData.entries());
 
+				data.csrf_token = csrfToken;
+
 				try{
 					const response = await fetch('/Dee-Auth-System/api/register.php', {
 						method: 'POST',
 						headers: {
-							'Content-Type' : 'application/json'
+							headers: getHeaders()
 						},
 						body:  JSON.stringify(data)
 					});
@@ -187,7 +198,7 @@
 						showNotification(result.message, 'error')
 					}
 				}catch(error){
-						showNotification("Connection error. Please try again.", 'error');
+						showNotification("Please try again.", 'error');
 				}
 			})
 		}
@@ -202,11 +213,13 @@
 				const formData = new FormData(loginForm);
 				const data = Object. fromEntries(formData.entries());
 
+				data.csrf_token = csrfToken;
+
 				try{
 					const response = await fetch('/Dee-Auth-System/api/login.php', {
 						method: 'POST',
 						headers: {
-							'Content-Type' : 'application/json' 
+							headers: getHeaders()
 						},
 						body: JSON.stringify(data)
 					});
@@ -214,16 +227,19 @@
 					if (loader) loader.classList.remove('active');
 
 					if(response.ok && result.status === 'success'){
+						localStorage.setItem('auth_token', result.token);
+   						 localStorage.setItem('user_name', result.user.name);
+   						 localStorage.setItem('user_id', result.user.id);
 						showNotification(result.message, 'success');
 					        setTimeout(() => {
-					            window.location.href = 'dashboard.php';
+					            window.location.href = '/Dee-Auth-System/views/dashboard.php';
 					        }, 1000);
 					}else {
 				        showNotification(result.message, 'error');
 				    }
 				}catch(error){
 					if (loader) loader.classList.remove('active');
-						showNotification("Server error. Please try again later.", 'error');
+						showNotification("Please try again later.", 'error');
 					}
 			})
 		}
@@ -239,7 +255,7 @@
 		  		  setTimeout(() => {
 			        notification.classList.add('fade-out');
 			        setTimeout(() => notification.remove(), 500);
-			    }, 10000);
+			    }, 4000);
 			};
 
 	});
